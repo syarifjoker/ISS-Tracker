@@ -1,0 +1,45 @@
+div.head {
+    width: auto;
+    margin: 0px;
+    padding: 15px;
+    background-size: cover;
+    background-color: black;
+    color: cornsilk;
+}
+
+h1{
+    text-align: center;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.column{
+    float: left;
+    width: 65%;
+    padding: 10px;
+}
+
+.row:after{
+    content: none;
+    display: table;
+    clear: both;
+}
+
+footer{
+    font-family:'Helvetica';
+    width:auto;
+    margin: 0px;
+    padding: 15px;
+    text-align: center;
+    background-color: darkgray;
+}
+
+
+/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+    .column.side, .column.middle {
+      width: 100%;
+    }
+}

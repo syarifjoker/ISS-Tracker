@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <!--Simple web face-->
+    <link rel="stylesheet" href="mystylesheet.css">
+    <!--leaflet.js extention-->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+        crossorigin="anonymous" />
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+        crossorigin="anonymous"></script>
+    <style>
+        #map {
+            height: 500px;
+        }
+    </style>
+    <title>International Space Station Tracker</title>
+</head>
+
+<body>
+    <!--header page-->
+    <div class="head">
+        <h1>Where is the International Space Station</h1>
+    </div>
+    <div class="row">
+        <!--Map-->
+        <div class="column" id="map">
+
+        </div>
+        <div class="column">
+            <p>test</p>
+        </div>
+    </div>
+    <script>
+        //Map Display
+        const mymap = L.map('map').setView([0, 0], 1);
+        const marker = L.marker([0, 0]).addTo(mymap);
+
+        const tileUrl = 'https:{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+        const attribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetmap</a> contributors'
+        const tiles = L.tileLayer(tileUrl, { attribution });
+        tiles.addTo(mymap);
+
+        //ISS Tracker API
+        const iss_url = 'https://api.wheretheiss.at/v1/satellites/25544';
+        async function getISS() {
+            const response = await fetch(iss_url);
+            const data = await response.json();
+            const { latitude, longitude, timestamp } = data;
+
+            marker.setLatLng([latitude, longitude]);
+
+        }
+
+        getISS();
+
+        setInterval(getISS, 1000);
+
+    </script>
+</body>
+<!--<footer>
+    <b>Developed by Muhammad Syarifuddin Bin Sa'ari</b>
+</footer>-->
+
+</html>
