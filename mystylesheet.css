@@ -11,13 +11,27 @@ h1{
     text-align: center;
 }
 
+table{
+    width: 100%;
+}
+
 * {
     box-sizing: border-box;
 }
 
-.column{
+row{
+    display: flex;
+}
+
+.column-1{
     float: left;
-    width: 65%;
+    width: 50%;
+    padding: 10px;
+}
+
+.column-2{
+    float: right;
+    width: 50%;
     padding: 10px;
 }
 

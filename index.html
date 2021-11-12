@@ -30,14 +30,39 @@
     </div>
     <div class="row">
         <!--Map-->
-        <div class="column" id="map">
+        <div class="column-1" id="map">
 
         </div>
-        <div class="column">
-            <p>test</p>
+        <div class="column-2">
+            <h2>Current Position and Time of ISS</h2><br/>
+            <table>
+                <tr>
+                    <td>
+                        <b>Latitude: </b>
+                        <p class="latitude"></p>
+                    </td>
+                    <td>
+                        <b>Longitude: </b>
+                        <p class="longitude"></p>
+                    </td>
+                    <td>
+                        <b>Time: </b>
+                        <p class="time"></p>
+                    </td>
+                </tr>
+            </table><br/>
+            <form>
+                <label for="datetimeLocation">Enter date and time</label>
+                <input type="datetime-local" id="datetimeLocation" name="datetimeTracker">
+            </form>
         </div>
     </div>
     <script>
+        //element needed
+        let latitudeText = document.querySelector('.latitude');
+        let longitudeText = document.querySelector('.longitude');
+        let timeText = document.querySelector('.time');
+
         //Map Display
         const mymap = L.map('map').setView([0, 0], 1);
         const marker = L.marker([0, 0]).addTo(mymap);
@@ -54,7 +79,20 @@
             const data = await response.json();
             const { latitude, longitude, timestamp } = data;
 
+            //converting text
+            const lat = data.latitude.toFixed(2);
+            const lon = data.longitude.toFixed(2);
+            const tt = new Date(data.timestamp * 1000).toUTCString(); //timestamp
+            updateISS(lat, lon, tt);
             marker.setLatLng([latitude, longitude]);
+
+        }
+
+        async function updateISS(lat, lon, tt) {
+
+            latitudeText.innerText = lat;
+            longitudeText.innerText = lon;
+            timeText.innerText = tt;
 
         }
 
